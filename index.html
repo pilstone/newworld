@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>창업 스토리와 크리에이터 산업 10년의 변화</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  :root {
+    --color-bg: #FAF7F2;
+    --color-bg-dark: #2C2421;
+    --color-bg-section: #3B2F2F;
+    --color-bg-quote: #F0EBE3;
+    --color-text: #2C2421;
+    --color-text-light: #6B5E57;
+    --color-accent: #C4713B;
+    --color-accent-light: #E8A66E;
+    --color-highlight: #D4883E;
+    --color-divider: #D6CCC2;
+    --font-serif: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+    --font-sans: 'Noto Sans KR', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #1a1410;
+    font-family: var(--font-serif);
+  }
+
+  /* Slide container */
+  .deck {
+    width: 100%; height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .slide.prev {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  /* Slide types */
+  .slide-title {
+    background: var(--color-bg-dark);
+    color: #FAF7F2;
+    text-align: center;
+  }
+
+  .slide-content {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  .slide-section {
+    background: var(--color-bg-section);
+    color: #FAF7F2;
+    text-align: center;
+  }
+
+  .slide-quote {
+    background: var(--color-bg-quote);
+    color: var(--color-text);
+    text-align: center;
+  }
+
+  .slide-two-column {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  .slide-image {
+    background: var(--color-bg);
+    color: var(--color-text);
+    text-align: center;
+  }
+
+  .slide-end {
+    background: var(--color-bg-dark);
+    color: #FAF7F2;
+    text-align: center;
+  }
+
+  /* Typography */
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  p, li {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    line-height: 1.8;
+    font-weight: 400;
+  }
+
+  .subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--color-accent-light);
+    margin-bottom: 30px;
+  }
+
+  .speaker-info {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #9B8E85;
+    margin-top: 40px;
+  }
+
+  .emoji-icon {
+    font-size: 3rem;
+    margin-bottom: 24px;
+  }
+
+  /* Section slides */
+  .section-label {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent-light);
+    margin-bottom: 16px;
+  }
+
+  .slide-section h1 {
+    font-size: 2.8rem;
+    color: #FAF7F2;
+  }
+
+  .slide-section .section-line {
+    width: 60px;
+    height: 3px;
+    background: var(--color-accent);
+    margin: 24px auto 0;
+    border-radius: 2px;
+  }
+
+  /* Quote slides */
+  .quote-text {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.7;
+    max-width: 800px;
+    color: var(--color-text);
+    font-style: italic;
+    position: relative;
+    padding: 0 20px;
+  }
+
+  .quote-text::before {
+    content: '\201C';
+    font-size: 5rem;
+    color: var(--color-accent);
+    position: absolute;
+    top: -40px;
+    left: -20px;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  .quote-sub {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    margin-top: 30px;
+    max-width: 700px;
+  }
+
+  /* Two column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    width: 100%;
+    max-width: 1100px;
+    align-items: start;
+  }
+
+  .two-col .col {
+    padding: 0;
+  }
+
+  .two-col .col h3 {
+    color: var(--color-accent);
+    margin-bottom: 16px;
+    font-size: 1.35rem;
+  }
+
+  .two-col .col ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .two-col .col ul li {
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .two-col .col ul li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 14px;
+  }
+
+  /* Content slides */
+  .content-wrap {
+    max-width: 950px;
+    width: 100%;
+  }
+
+  .content-wrap h2 {
+    color: var(--color-text);
+    margin-bottom: 24px;
+  }
+
+  .content-wrap ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .content-wrap ul li {
+    padding: 8px 0;
+    padding-left: 24px;
+    position: relative;
+    font-size: 1.15rem;
+  }
+
+  .content-wrap ul li::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 15px;
+  }
+
+  .content-wrap .highlight-box {
+    background: rgba(196, 113, 59, 0.08);
+    border-left: 4px solid var(--color-accent);
+    padding: 20px 24px;
+    margin-top: 24px;
+    border-radius: 0 8px 8px 0;
+    font-family: var(--font-sans);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .content-wrap .highlight-box strong {
+    color: var(--color-accent);
+  }
+
+  /* Keywords grid */
+  .keyword-grid {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .keyword-card {
+    background: white;
+    border: 1px solid var(--color-divider);
+    border-radius: 12px;
+    padding: 24px 28px;
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+  }
+
+  .keyword-card .kc-emoji {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .keyword-card .kc-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .keyword-card .kc-sub {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-top: 6px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 20px 0;
+    position: relative;
+    padding-left: 30px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--color-divider);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 10px 0 10px 24px;
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    border: 3px solid var(--color-bg);
+  }
+
+  .timeline-item .tl-label {
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .flow-item {
+    background: white;
+    border: 1px solid var(--color-divider);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .flow-arrow {
+    font-size: 1.5rem;
+    color: var(--color-accent);
+  }
+
+  /* Circular flow */
+  .circular-flow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    max-width: 900px;
+  }
+
+  .circular-flow .cf-item {
+    background: white;
+    border: 1px solid var(--color-divider);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    text-align: center;
+    max-width: 200px;
+  }
+
+  .circular-flow .cf-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    color: var(--color-accent);
+  }
+
+  /* Placeholder image */
+  .placeholder-img {
+    background: #E8E2DA;
+    border: 2px dashed var(--color-divider);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    max-width: 500px;
+    margin: 16px auto;
+  }
+
+  .placeholder-img .ph-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+
+  /* Versus / comparison */
+  .vs-box {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: center;
+    margin: 20px 0;
+    max-width: 900px;
+  }
+
+  .vs-side {
+    background: white;
+    border: 1px solid var(--color-divider);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .vs-divider {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  /* Role grid */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+    max-width: 700px;
+  }
+
+  .role-grid .rg-item {
+    background: rgba(196, 113, 59, 0.08);
+    border-radius: 8px;
+    padding: 14px 18px;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  /* Question list */
+  .question-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: q;
+    max-width: 750px;
+  }
+
+  .question-list li {
+    counter-increment: q;
+    padding: 16px 0;
+    padding-left: 50px;
+    position: relative;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .question-list li:last-child {
+    border-bottom: none;
+  }
+
+  .question-list li::before {
+    content: counter(q);
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 34px;
+    height: 34px;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+  }
+
+  .nav button {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(44, 36, 33, 0.7);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav button:hover {
+    background: rgba(44, 36, 33, 0.9);
+  }
+
+  /* Progress bar */
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--color-accent);
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  /* Slide counter */
+  .counter {
+    position: fixed;
+    bottom: 36px;
+    left: 40px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    z-index: 100;
+  }
+
+  .slide-section .counter,
+  .slide-title .counter,
+  .slide-end .counter {
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* Misc */
+  .mt { margin-top: 16px; }
+  .mt-lg { margin-top: 32px; }
+  .mb { margin-bottom: 16px; }
+  .text-accent { color: var(--color-accent); }
+  .text-light { color: var(--color-text-light); }
+  .text-sm {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .text-center { text-align: center; }
+  .bold { font-weight: 700; }
+
+  .oneline {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    margin-top: 20px;
+    padding: 14px 24px;
+    background: rgba(196, 113, 59, 0.06);
+    border-radius: 8px;
+    display: inline-block;
+  }
+
+  .bottom-note {
+    margin-top: 32px;
+    font-family: var(--font-sans);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  /* Phase timeline */
+  .phase-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 20px 0;
+    max-width: 800px;
+  }
+
+  .phase-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 14px 0;
+    border-left: 3px solid var(--color-divider);
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .phase-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 20px;
+    width: 11px;
+    height: 11px;
+    background: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  .phase-item .phase-label {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    min-width: 80px;
+    white-space: nowrap;
+  }
+
+  .phase-item .phase-desc {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  /* End slide */
+  .slide-end h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+
+  .slide-end .end-sub {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    color: #9B8E85;
+    margin-top: 10px;
+  }
+
+  .slide-end .end-info {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: #7A6E67;
+    margin-top: 30px;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ========== SLIDE 1: 표지 ========== -->
+  <div class="slide slide-title active" data-index="0">
+    <div class="emoji-icon">🎬</div>
+    <h1>창업 스토리와<br>크리에이터 산업 10년의 변화</h1>
+    <p class="subtitle">샌드박스를 만들며 배운 것, 그리고 앞으로의 전망</p>
+    <p class="speaker-info">이필성 · 샌드박스 네트워크 대표</p>
+  </div>
+
+  <!-- ========== SLIDE 2: 자기소개 ========== -->
+  <div class="slide slide-content" data-index="1">
+    <div class="content-wrap">
+      <h2>이필성</h2>
+      <div class="keyword-grid">
+        <div class="keyword-card">
+          <div class="kc-emoji">🎓</div>
+          <div class="kc-title">연세대 경영학과</div>
+          <div class="kc-sub">05학번</div>
+        </div>
+        <div class="keyword-card">
+          <div class="kc-emoji">🔍</div>
+          <div class="kc-title">前 Google Korea</div>
+          <div class="kc-sub">SMB → AdSense → AdSense for Video</div>
+        </div>
+        <div class="keyword-card">
+          <div class="kc-emoji">🚀</div>
+          <div class="kc-title">現 샌드박스 네트워크 대표</div>
+          <div class="kc-sub">2015년~</div>
+        </div>
+      </div>
+      <div class="oneline">"IT의 속도감과 변화가 제 성향과 맞았습니다"</div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 3: 섹션 — Part 1 ========== -->
+  <div class="slide slide-section" data-index="2">
+    <div class="section-label">Part 1</div>
+    <h1>구글에서의 경험</h1>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- ========== SLIDE 4: 구글 커리어 타임라인 ========== -->
+  <div class="slide slide-content" data-index="3">
+    <div class="content-wrap">
+      <h2>구글 커리어 타임라인</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="tl-label">Step 1.</span> SMB 광고 에이전시 BD
+        </div>
+        <div class="timeline-item">
+          <span class="tl-label">Step 2.</span> AdSense 조직 — Tier 1 콘텐츠 파트너 제휴
+        </div>
+        <div class="timeline-item">
+          <span class="tl-label">Step 3.</span> AdSense for Video — CJ E&M 등 비디오 파트너
+        </div>
+      </div>
+      <div class="highlight-box">
+        비디오 광고 시장과 디지털 콘텐츠 수익화 구조를 <strong>입체적으로 이해</strong>하게 된 시기
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 5: 도티와의 만남 ========== -->
+  <div class="slide slide-two-column" data-index="4">
+    <h2 class="mb" style="width:100%;max-width:1100px;">도티와의 만남</h2>
+    <div class="two-col">
+      <div class="col">
+        <ul>
+          <li>"대학 친구가 어느 날 마인크래프트 유튜버가 되겠다고 했다"</li>
+          <li>주변의 젊은 게임 크리에이터들을 접하게 됨</li>
+          <li>당시 유튜브 게임 씬은 아직 '비주류'였던 시절</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="placeholder-img">
+          <div class="ph-icon">🎮</div>
+          <p>2014~2015년경 초기 마인크래프트/게임 유튜브 문화를 상징하는 이미지</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 6: 크리에이터의 딜레마 ========== -->
+  <div class="slide slide-quote" data-index="5">
+    <div class="quote-text">
+      콘텐츠는 잘 만들지만, 그것을 산업 안에서 자신의 가치로 전환하는 방법은 모르는 사람들이었다.
+    </div>
+    <div class="quote-sub">
+      재능과 열정은 뛰어나지만, 비즈니스 감각 · 협상력 · 계약 이해도가 취약
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 7: 섹션 — Part 2 ========== -->
+  <div class="slide slide-section" data-index="6">
+    <div class="section-label">Part 2</div>
+    <h1>샌드박스의 시작</h1>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- ========== SLIDE 8: 창업의 결정적 순간 ========== -->
+  <div class="slide slide-content" data-index="7">
+    <div class="content-wrap">
+      <h2>창업의 결정적 순간</h2>
+      <ul>
+        <li>도티의 첫 게임 광고 — 터무니없이 낮은 금액</li>
+        <li>누군가가 협상을 돕고, 브랜드 딜을 상품화하고, 거래 구조를 만들어줘야 하는 시장</li>
+        <li>"이 과정 자체가 하나의 비즈니스가 될 수 있다"</li>
+      </ul>
+      <div class="bottom-note">2015년 6월, 샌드박스 네트워크 창업</div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 9: 초기 두 가지 철학 ========== -->
+  <div class="slide slide-two-column" data-index="8">
+    <h2 class="mb" style="width:100%;max-width:1100px;">초기 두 가지 철학</h2>
+    <div class="two-col">
+      <div class="col">
+        <h3>철학 ① 크리에이터 퍼스트</h3>
+        <ul>
+          <li>크리에이터가 파운딩 멤버인 회사</li>
+          <li>창작자의 감정, 불안, 동기까지 이해</li>
+          <li>"광고 매체가 아니라 사람으로 본다"</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>철학 ② 새로운 광고 인벤토리</h3>
+        <ul>
+          <li>게임 크리에이터 = 비디오 애드 네트워크</li>
+          <li>앱 다운로드 시장의 급성장과 연계</li>
+          <li>AdSense 경험에서 착안한 BM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 10: 초기 BM의 벽 ========== -->
+  <div class="slide slide-content" data-index="9">
+    <div class="content-wrap">
+      <h2>초기 BM의 벽</h2>
+      <div class="vs-box" style="margin: 24px auto;">
+        <div class="vs-side">
+          <p class="bold text-accent">광고주가 원하는 타깃</p>
+          <p class="text-sm mt">20~30대</p>
+        </div>
+        <div class="vs-divider">≠</div>
+        <div class="vs-side">
+          <p class="bold text-accent">실제 시청자</p>
+          <p class="text-sm mt">초등~중학생</p>
+        </div>
+      </div>
+      <div class="highlight-box">
+        "광고 비즈니스는 기대만큼 매끄럽지 않았다"
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 11: 팬미팅에서의 발견 ========== -->
+  <div class="slide slide-image" data-index="10">
+    <h2 class="mb">팬미팅에서의 발견</h2>
+    <div class="placeholder-img" style="max-width:600px;">
+      <div class="ph-icon">🎤</div>
+      <p>크리에이터 팬미팅 현장 사진.<br>열광하는 어린 팬들, 사인회/포토타임 등<br>아이돌 팬덤과 유사한 분위기의 장면</p>
+    </div>
+    <div class="highlight-box mt-lg" style="max-width:700px;">
+      "이건 광고 인벤토리가 아니라 <strong>IP</strong>가 될 수 있겠다"
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 12: 피봇 ========== -->
+  <div class="slide slide-content" data-index="11">
+    <div class="content-wrap">
+      <h2>피봇: 광고 네트워크 → IP 비즈니스</h2>
+      <div class="flow" style="margin: 30px 0;">
+        <div class="flow-item">팬덤의 발견</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">크리에이터<br>캐릭터화</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">IP 사업 전개</div>
+      </div>
+      <div class="highlight-box">
+        성과↑ 수익성↑ — <strong>"샌드박스의 두 번째 페이즈가 열렸다"</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 13: 섹션 — Part 3 ========== -->
+  <div class="slide slide-section" data-index="12">
+    <div class="section-label">Part 3</div>
+    <h1>유튜브와 함께 진화하다</h1>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- ========== SLIDE 14: 2015년 vs 현재 유튜브 ========== -->
+  <div class="slide slide-two-column" data-index="13">
+    <h2 class="mb" style="width:100%;max-width:1100px;">유튜브의 변화</h2>
+    <div class="two-col">
+      <div class="col">
+        <h3>2015년</h3>
+        <ul>
+          <li>주 시청자: 초등학생, 어린 시청자</li>
+          <li>게임, 장난감, 키즈 콘텐츠 중심</li>
+          <li>뷰티/코스메틱 얼리어답터, K-POP 팬덤 일부</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>현재</h3>
+        <ul>
+          <li>전 세대가 프라이머리 미디어로 소비</li>
+          <li>경제, 시사, 여행, 먹방, 지식, 라이프스타일…</li>
+          <li>"기존 방송이 담당하던 영역을 유튜브가 흡수"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 15: 선순환 구조 ========== -->
+  <div class="slide slide-content" data-index="14">
+    <div class="content-wrap text-center">
+      <h2>선순환 구조</h2>
+      <div class="circular-flow" style="margin: 30px auto;">
+        <div class="cf-item">수익화 가능성<br>알려짐</div>
+        <div class="cf-arrow">→</div>
+        <div class="cf-item">다양한<br>창작자 유입</div>
+        <div class="cf-arrow">→</div>
+        <div class="cf-item">콘텐츠 카테고리<br>확장</div>
+        <div class="cf-arrow">→</div>
+        <div class="cf-item">시청자<br>연령층 확대</div>
+        <div class="cf-arrow">↻</div>
+      </div>
+      <div class="highlight-box" style="max-width:700px;margin:20px auto 0;">
+        서브컬처 미디어 → <strong>전 세대의 거대 미디어 플랫폼</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 16: 샌드박스의 진화 ========== -->
+  <div class="slide slide-content" data-index="15">
+    <div class="content-wrap">
+      <h2>샌드박스의 진화</h2>
+      <div class="flow" style="margin: 24px 0;">
+        <div class="flow-item">게임 크리에이터<br>중심 MCN</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">넓은 스펙트럼의<br>Creator Service Provider</div>
+      </div>
+      <div class="placeholder-img" style="max-width:550px;margin:24px auto;">
+        <div class="ph-icon">🎭</div>
+        <p>다양한 크리에이터 카테고리를 보여주는 콜라주<br>(게임, 뷰티, 먹방, 지식, 브이로그 등)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 17: TV적 콘텐츠 ========== -->
+  <div class="slide slide-two-column" data-index="16">
+    <h2 class="mb" style="width:100%;max-width:1100px;">TV적 콘텐츠의 탄생</h2>
+    <div class="two-col">
+      <div class="col">
+        <h3>사례</h3>
+        <ul>
+          <li>왓썹맨, 가짜사나이 같은 포맷</li>
+          <li>TV적 기획력 + 유튜브 네이티브</li>
+        </ul>
+        <div class="placeholder-img mt" style="max-width:100%;">
+          <div class="ph-icon">🎬</div>
+          <p>유튜브 예능/다큐 스타일 제작 현장</p>
+        </div>
+      </div>
+      <div class="col">
+        <h3>의미</h3>
+        <ul>
+          <li>셀프캠 중심 → 프로덕션 경쟁의 장</li>
+          <li>샌드박스도 더 넓은 연령층 대상 콘텐츠로 확장</li>
+          <li>크리에이터와 프로덕션의 경계가 무너지다</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 18: 뼈아픈 교훈 ========== -->
+  <div class="slide slide-quote" data-index="17">
+    <div class="quote-text">
+      트렌드가 보인다고 너무 빨리 앞서 나가면, 그것을 뒷받침할 비즈니스 모델이 아직 성숙하지 않은 상태일 수 있다.
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 19: 콘텐츠 투자의 역설 ========== -->
+  <div class="slide slide-content" data-index="18">
+    <div class="content-wrap">
+      <h2>콘텐츠 투자의 역설</h2>
+      <div class="vs-box" style="margin: 24px auto;">
+        <div class="vs-side">
+          <p class="bold text-accent">인터넷 서비스/플랫폼</p>
+          <p class="text-sm mt">선투자 → 인프라가<br>자산으로 축적</p>
+        </div>
+        <div class="vs-divider">vs</div>
+        <div class="vs-side">
+          <p class="bold text-accent">콘텐츠</p>
+          <p class="text-sm mt">소비 순간 휘발 →<br>수익 모델 없는 선투자 ≠ 자산</p>
+        </div>
+      </div>
+      <div class="highlight-box" style="max-width:800px;">
+        <strong>"비즈니스의 본질은 자본을 자산으로 전환하는 것.<br>콘텐츠 산업에서 이 전환은 생각보다 훨씬 어렵다."</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 20: 섹션 — Part 4 ========== -->
+  <div class="slide slide-section" data-index="19">
+    <div class="section-label">Part 4</div>
+    <h1>Back to the Basics</h1>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- ========== SLIDE 21: 방송사 편성의 교훈 ========== -->
+  <div class="slide slide-content" data-index="20">
+    <div class="content-wrap">
+      <h2>방송사 편성의 교훈</h2>
+      <ul>
+        <li>SBS 출신 직원과 방송사 하루 편성을 분석</li>
+        <li>"종합 방송사조차 핵심 타깃은 2030 여성에 가깝다"</li>
+      </ul>
+      <div class="highlight-box mt-lg">
+        콘텐츠 소비의 핵심 오디언스는 <strong>구조적으로 정해져 있다</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 22: 어드레서블 마켓의 진실 ========== -->
+  <div class="slide slide-content" data-index="21">
+    <div class="content-wrap">
+      <h2>어드레서블 마켓의 진실</h2>
+      <div class="highlight-box mb">
+        콘텐츠 비즈니스 = 무한한 시장 ✕ → <strong>정의 가능한 Addressable Market ○</strong>
+      </div>
+      <div class="two-col mt-lg" style="max-width:100%;">
+        <div class="col">
+          <h3>변하는 것</h3>
+          <ul>
+            <li>소비 방식</li>
+            <li>취향</li>
+            <li>플랫폼</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>변하지 않는 것</h3>
+          <ul>
+            <li>누가 콘텐츠를 많이 소비하는가</li>
+            <li>어떤 카테고리에 반응하는가</li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-sm text-light mt-lg text-center" style="max-width:700px;margin-left:auto;margin-right:auto;">"이 본질을 잊으면 빠르게 변하는 업계에서 오히려 길을 잃는다"</p>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 23: 본질적 질문 ========== -->
+  <div class="slide slide-quote" data-index="22">
+    <div class="quote-text">
+      샌드박스는 본질적으로 어떤 회사인가?
+    </div>
+    <div class="quote-sub">
+      Creator Service Provider — "어떻게 하면 크리에이터에게 더 큰 가치를 줄 수 있는가"
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 24: 지금 업계의 도전 ========== -->
+  <div class="slide slide-two-column" data-index="23">
+    <h2 class="mb" style="width:100%;max-width:1100px;">지금 업계의 도전</h2>
+    <div class="two-col">
+      <div class="col">
+        <h3>변화하는 환경</h3>
+        <ul>
+          <li>AI 도입 → 크리에이터 스펙트럼 다양화</li>
+          <li>쇼트폼 확산 → 콘텐츠 휘발성 강화</li>
+          <li>광고만으로는 성장 한계 (CPM/예산 제약, 플랫폼 의존)</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>크리에이터의 진화 방향</h3>
+        <ul>
+          <li>단순 콘텐츠 제작자 → 1인 미디어 기업</li>
+        </ul>
+        <div class="placeholder-img mt">
+          <div class="ph-icon">📊</div>
+          <p>크리에이터가 콘텐츠, 커머스, IP, 브랜드로 확장하는 도식</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 25: CSP의 새로운 역할 ========== -->
+  <div class="slide slide-content" data-index="24">
+    <div class="content-wrap">
+      <h2>CSP의 새로운 역할</h2>
+      <p class="text-sm text-light mb">과거: 광고 영업, 계약, 정산, 매니지먼트</p>
+      <p class="bold mb" style="font-size:1.1rem;">현재 / 미래:</p>
+      <div class="role-grid">
+        <div class="rg-item">콘텐츠 전략</div>
+        <div class="rg-item">IP 확장</div>
+        <div class="rg-item">커머스</div>
+        <div class="rg-item">브랜딩</div>
+        <div class="rg-item">글로벌 진출</div>
+        <div class="rg-item">플랫폼 다각화</div>
+        <div class="rg-item">데이터 분석</div>
+        <div class="rg-item">AI 도구 활용</div>
+        <div class="rg-item">사업 설계</div>
+      </div>
+      <div class="highlight-box mt">
+        "업무 대행자가 아니라, 크리에이터가 <strong>더 큰 사업자가 되도록 돕는 파트너</strong>"
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 26: 10년의 시행착오 요약 ========== -->
+  <div class="slide slide-content" data-index="25">
+    <div class="content-wrap">
+      <h2>10년의 시행착오</h2>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <span class="phase-label">Phase 1</span>
+          <span class="phase-desc">광고 네트워크를 꿈꿈</span>
+        </div>
+        <div class="phase-item">
+          <span class="phase-label">Phase 2</span>
+          <span class="phase-desc">팬덤 발견 → IP 비즈니스</span>
+        </div>
+        <div class="phase-item">
+          <span class="phase-label">Phase 3</span>
+          <span class="phase-desc">TV라이크 콘텐츠 제작 확장</span>
+        </div>
+        <div class="phase-item">
+          <span class="phase-label">Phase 4</span>
+          <span class="phase-desc">Back to Basics — 본질에 대한 질문</span>
+        </div>
+      </div>
+      <div class="highlight-box mt">
+        "시장의 변화와 함께 성장했지만, <strong>유행에 휩쓸리며 비용도 치렀다</strong>"
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 27: 섹션 — Part 5 ========== -->
+  <div class="slide slide-section" data-index="26">
+    <div class="section-label">Part 5</div>
+    <h1>미래를 준비하는<br>여러분에게</h1>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- ========== SLIDE 28: 메시지 ① ========== -->
+  <div class="slide slide-content" data-index="27">
+    <div class="content-wrap">
+      <h2>이 산업은 오래된 본질 위에서 움직인다</h2>
+      <div class="two-col mt-lg" style="max-width:100%;">
+        <div class="col">
+          <h3>겉</h3>
+          <p class="text-sm">화려하고 빠르게 변하는 것처럼 보이지만</p>
+        </div>
+        <div class="col">
+          <h3>속</h3>
+          <p class="text-sm">인간의 관심, 욕망, 습관, 관계 — 오래된 본질</p>
+        </div>
+      </div>
+      <div class="placeholder-img mt-lg" style="max-width:550px;margin-left:auto;margin-right:auto;">
+        <div class="ph-icon">📻→📺→💻→📱</div>
+        <p>매체는 변하지만, 사람이 콘텐츠를 소비하는 근본적 모습은 같다</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 29: 메시지 ② ========== -->
+  <div class="slide slide-content" data-index="28">
+    <div class="content-wrap text-center">
+      <h2>'무엇을 만들까'만이 아니라<br>'어떻게 지속 가능한 가치가 되는가'</h2>
+      <div class="two-col mt-lg" style="max-width:100%;">
+        <div class="col">
+          <div class="keyword-card">
+            <div class="kc-emoji">🎨</div>
+            <div class="kc-title">콘텐츠를 만드는 것</div>
+            <div class="kc-sub">중요</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="keyword-card" style="border-color:var(--color-accent);">
+            <div class="kc-emoji">🏗️</div>
+            <div class="kc-title">사업·자산·브랜드·관계가<br>되는 구조를 이해하는 것</div>
+            <div class="kc-sub" style="color:var(--color-accent);font-weight:700;">더 중요</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 30: 남는 질문들 ========== -->
+  <div class="slide slide-content" data-index="29">
+    <div class="content-wrap text-center">
+      <h2>남는 질문들</h2>
+      <ol class="question-list mt-lg" style="text-align:left;margin-left:auto;margin-right:auto;">
+        <li>누가 우리의 고객인가</li>
+        <li>우리는 어떤 가치를 줄 수 있는가</li>
+        <li>어떤 자본이 진짜 자산이 되는가</li>
+        <li>이 산업에서 무엇은 변하고, 무엇은 변하지 않는가</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 31: 마지막 메시지 ========== -->
+  <div class="slide slide-quote" data-index="30">
+    <div class="quote-text">
+      중요한 것은 누가 더 화려한 것을 만드느냐보다, 누가 더 깊이 사람을 이해하고, 더 오래 지속되는 가치를 설계하느냐이다.
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 32: 엔딩 ========== -->
+  <div class="slide slide-end" data-index="31">
+    <h1>감사합니다</h1>
+    <p class="end-sub">Q&A</p>
+    <p class="end-info">이필성 · 샌드박스 네트워크</p>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()" aria-label="이전">←</button>
+  <button onclick="nextSlide()" aria-label="다음">→</button>
+</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  const progress = document.getElementById('progress');
+  const counter = document.getElementById('counter');
+
+  function updateUI() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === current) s.classList.add('active');
+      else if (i < current) s.classList.add('prev');
+    });
+    progress.style.width = ((current + 1) / total * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  window.nextSlide = function() {
+    if (current < total - 1) { current++; updateUI(); }
+  };
+
+  window.prevSlide = function() {
+    if (current > 0) { current--; updateUI(); }
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown') {
+      e.preventDefault(); nextSlide();
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'Backspace' || e.key === 'PageUp') {
+      e.preventDefault(); prevSlide();
+    }
+    if (e.key === 'Home') { current = 0; updateUI(); }
+    if (e.key === 'End') { current = total - 1; updateUI(); }
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+  document.addEventListener('touchend', function(e) {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff < 0) nextSlide();
+      else prevSlide();
+    }
+  });
+
+  updateUI();
+})();
+</script>
+
+</body>
+</html>
